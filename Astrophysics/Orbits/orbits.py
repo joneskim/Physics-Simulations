@@ -60,7 +60,7 @@ moon = Body(m_moon, r_moon, v_moon)
 system = System([sun, earth, moon])
 
 # define time and number of steps
-num_steps = 10000  # Increase the number of steps
+num_steps = 1000  # Increase the number of steps
 t = np.linspace(0, 365*24*60*60, num_steps)
 
 # define empty lists to store positions
@@ -88,13 +88,17 @@ def animate(i):
     ax.set_xlim(-2e11, 2e11)
     ax.set_ylim(-2e11, 2e11)
     ax.set_zlim(-2e11, 2e11)
-    ax.plot(x_earth[i], y_earth[i], z_earth[i], 'bo', markersize=10)
+    ax.plot(x_earth[i], y_earth[i], z_earth[i], 'bo', markersize=20)
     ax.plot(x_moon[i], y_moon[i], z_moon[i], 'ro', markersize=5)
-    ax.plot(x_earth, y_earth, z_earth, 'b')
-    ax.plot(x_moon, y_moon, z_moon, 'r')
+    # plot the sun
+    ax.plot([0], [0], [0], 'yo', markersize=50)
+    # the sun is not moving, so we don't need to plot it every time
+    return ax
+
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ani = animation.FuncAnimation(fig, animate, frames=num_steps, interval=1)
+# speed up the animation by decreasing the interval
+ani = animation.FuncAnimation(fig, animate, frames=len(t), interval=1)
 ani.save('orbits.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
 plt.show()
