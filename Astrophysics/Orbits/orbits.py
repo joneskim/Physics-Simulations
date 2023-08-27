@@ -88,8 +88,8 @@ def animate(i):
     ax.set_xlim(-2e11, 2e11)
     ax.set_ylim(-2e11, 2e11)
     ax.set_zlim(-2e11, 2e11)
-    ax.plot(x_earth[i], y_earth[i], z_earth[i], 'bo', markersize=20)
-    ax.plot(x_moon[i], y_moon[i], z_moon[i], 'ro', markersize=5)
+    ax.plot(x_earth[i], y_earth[i], z_earth[i], 'bo', markersize=8)
+    ax.plot(x_moon[i], y_moon[i], z_moon[i], 'ro', markersize=4)
     # plot the sun
     ax.plot([0], [0], [0], 'yo', markersize=50)
     # the sun is not moving, so we don't need to plot it every time
@@ -99,6 +99,6 @@ def animate(i):
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 # speed up the animation by decreasing the interval
-ani = animation.FuncAnimation(fig, animate, frames=len(t), interval=1)
+ani = animation.FuncAnimation(fig, animate, frames=len(t), interval=0.1)
 ani.save('orbits.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
 plt.show()
