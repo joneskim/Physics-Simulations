@@ -2,8 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.animation as animation
-# save the animation as an mp4.  This requires ffmpeg or mencoder to be
-# installed.  The extra_args ensure that the x264 codec is used, so that
 
 # Define constants
 G = 6.67408e-11 # m^3 kg^-1 s^-2
@@ -52,7 +50,6 @@ class System:
                     force += self.bodies[i].force(self.bodies[j]).astype(np.float64)
             self.bodies[i].move(force, dt)
 
-# try to make a system with the sun, earth, and moon
 sun = Body(M_sun, [0, 0, 0], [0, 0, 0])
 earth = Body(m_earth, r_earth, v_earth)
 moon = Body(m_moon, r_moon, v_moon)
@@ -60,7 +57,7 @@ moon = Body(m_moon, r_moon, v_moon)
 system = System([sun, earth, moon])
 
 # define time and number of steps
-num_steps = 1000  # Increase the number of steps
+num_steps = 1000 
 t = np.linspace(0, 365*24*60*60, num_steps)
 
 # define empty lists to store positions
@@ -98,7 +95,6 @@ def animate(i):
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-# speed up the animation by decreasing the interval
 ani = animation.FuncAnimation(fig, animate, frames=len(t), interval=0.1)
 ani.save('orbits.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
 plt.show()
